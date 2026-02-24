@@ -1,0 +1,72 @@
+import React from 'react';
+import { motion } from 'motion/react';
+
+const marqueeImages = [
+  "https://images.unsplash.com/photo-1556228552-523de5029056?q=80&w=1000&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1526947425960-945c6e72858f?q=80&w=1000&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?q=80&w=1000&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1586495777744-4413f21062fa?q=80&w=1000&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?q=80&w=1000&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1000&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000&auto=format&fit=crop",
+  "https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=1000&auto=format&fit=crop",
+];
+
+const VerticalMarquee = ({ direction = "up", speed = 20 }: { direction?: "up" | "down", speed?: number }) => {
+  return (
+    <div className="h-full w-full min-w-0 overflow-hidden relative flex flex-col gap-2 sm:gap-4">
+      <motion.div
+        initial={{ y: direction === "up" ? 0 : "-50%" }}
+        animate={{ y: direction === "up" ? "-50%" : 0 }}
+        transition={{
+          repeat: Infinity,
+          ease: "linear",
+          duration: speed,
+        }}
+        className="flex flex-col gap-4"
+      >
+        {[...marqueeImages, ...marqueeImages].map((src, idx) => (
+          <div key={idx} className="relative rounded-2xl overflow-hidden aspect-[3/4] flex-shrink-0">
+            <img src={src} alt="Product" className="w-full h-full object-cover" />
+          </div>
+        ))}
+      </motion.div>
+    </div>
+  );
+};
+
+export const Hero = () => {
+  return (
+    <section className="bg-brand-orange pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 min-h-[100dvh] flex items-center overflow-hidden">
+      <div className="container mx-auto px-4 sm:px-6 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
+        
+        <div className="z-10 order-2 lg:order-1">
+          <h1 className="font-display font-black text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight tracking-tight mb-4 sm:mb-6">
+            We create <br />
+            <span className="text-brand-blue">high-performing</span> <br />
+            <span className="text-brand-blue">visuals</span> that help D2C <br />
+            brands sell more
+          </h1>
+          
+          <p className="text-white/90 text-sm sm:text-base md:text-lg max-w-lg mb-6 sm:mb-8 leading-relaxed">
+            Trusted by India's leading D2C brands, Branding Hunks is the creative partner that turns your product into content that converts. From scroll-stopping reels to campaign-ready photos — we make your brand look as good as it performs.
+          </p>
+          
+          <button className="bg-brand-blue text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-sm sm:text-base hover:bg-blue-800 transition-colors shadow-lg hover:shadow-xl active:scale-[0.98] transition-all duration-200 min-h-[44px]">
+            Book a Call
+          </button>
+        </div>
+
+        <div className="relative h-[280px] sm:h-[340px] md:h-[450px] lg:h-[600px] flex gap-2 sm:gap-4 overflow-hidden mask-gradient order-1 lg:order-2">
+           {/* Gradient Masks for smooth fade */}
+           <div className="absolute top-0 left-0 right-0 h-20 bg-gradient-to-b from-brand-orange to-transparent z-20 pointer-events-none"></div>
+           <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-brand-orange to-transparent z-20 pointer-events-none"></div>
+
+           <div className="flex-1 min-w-0 h-full flex overflow-hidden"><VerticalMarquee speed={30} direction="up" /></div>
+           <div className="flex-1 min-w-0 h-full flex overflow-hidden"><VerticalMarquee speed={40} direction="down" /></div>
+           <div className="flex-1 min-w-0 h-full hidden sm:flex overflow-hidden"><VerticalMarquee speed={25} direction="up" /></div>
+        </div>
+      </div>
+    </section>
+  );
+};
