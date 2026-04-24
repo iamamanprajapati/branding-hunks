@@ -4,10 +4,16 @@ import { cn } from '../lib/utils';
 
 /* YouTube Shorts: autoplay, mute, loop, no controls, 9:16. Overlay blocks all interaction. */
 const YOUTUBE_SHORTS = [
-  { id: 'Km0F48ksCMg' },
-  { id: 'HQsS-sfB96M' },
-  { id: '7IN5WNKhguQ' },
-  { id: 'HQsS-sfB96M' },
+  { id: '9B_bjfsrl_k' },
+  { id: 'LmVL7oYGgCE' },
+  { id: '_Vv3yHrFYpY' },
+  { id: 'd51IdYIieEg' },
+  { id: 'kU3NYcumKMQ' },
+  { id: 'uzm_jbHu_so' },
+  { id: 'lU3lhdKtRBQ' },
+  { id: 'k4hUoySQ6VE' },
+  { id: '9KwCu4HpaoU' },
+  { id: 'Hn9MsHdHWfk' },
 ];
 
 const YouTubeShortEmbed = ({ videoId }: { videoId: string }) => {
@@ -28,53 +34,20 @@ const YouTubeShortEmbed = ({ videoId }: { videoId: string }) => {
   );
 };
 
-const categories = ["All", "Beauty", "Fashion", "Food", "Health & Wellness", "Pets", "Kids"];
+const categories = ['All', 'Fashion', 'Pets', 'Kids'];
 
 const portfolioItems = [
-  { 
-    type: 'video', 
-    src: 'https://cdn.coverr.co/videos/coverr-applying-face-cream-5394/1080p.mp4', 
-    category: 'Beauty',
-    poster: 'https://images.unsplash.com/photo-1596462502278-27bfdd403348?q=80&w=800&auto=format&fit=crop'
-  },
-  { 
-    type: 'image', 
-    src: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=800&auto=format&fit=crop', 
-    category: 'Fashion' 
-  },
-  { 
-    type: 'video', 
-    src: 'https://cdn.coverr.co/videos/coverr-pouring-fresh-juice-4672/1080p.mp4', 
-    category: 'Food',
-    poster: 'https://images.unsplash.com/photo-1620916566398-39f1143ab7be?q=80&w=800&auto=format&fit=crop'
-  },
-  { 
-    type: 'image', 
-    src: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800&auto=format&fit=crop', 
-    category: 'Pets' 
-  },
-  { 
-    type: 'video', 
-    src: 'https://cdn.coverr.co/videos/coverr-girl-playing-with-dog-4568/1080p.mp4', 
-    category: 'Pets',
-    poster: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?q=80&w=800&auto=format&fit=crop'
-  },
-  { 
-    type: 'image', 
-    src: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?q=80&w=800&auto=format&fit=crop', 
-    category: 'Kids' 
-  },
-  { 
-    type: 'video', 
-    src: 'https://cdn.coverr.co/videos/coverr-yoga-by-the-sea-5362/1080p.mp4', 
-    category: 'Health & Wellness',
-    poster: 'https://images.unsplash.com/photo-1544367563-12123d8965cd?q=80&w=800&auto=format&fit=crop'
-  },
-  { 
-    type: 'video', 
-    src: 'https://cdn.coverr.co/videos/coverr-fashion-photoshoot-in-studio-5642/1080p.mp4', 
+  {
+    src: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=800&auto=format&fit=crop',
     category: 'Fashion',
-    poster: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?q=80&w=800&auto=format&fit=crop'
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800&auto=format&fit=crop',
+    category: 'Pets',
+  },
+  {
+    src: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?q=80&w=800&auto=format&fit=crop',
+    category: 'Kids',
   },
 ];
 
@@ -117,8 +90,10 @@ export const Portfolio = () => {
         {/* YouTube Shorts: same grid & gap as image grid below */}
         <div className="mb-12 sm:mb-8">
           <div className="grid grid-cols-[repeat(auto-fill,210px)] sm:grid-cols-[repeat(auto-fill,250px)] justify-center gap-4 sm:gap-6 md:gap-8">
-            {YOUTUBE_SHORTS.map(({ id }) => (
-              <YouTubeShortEmbed key={id} videoId={id} />
+            {YOUTUBE_SHORTS.map(({ id }, idx) => (
+              <React.Fragment key={idx}>
+                <YouTubeShortEmbed videoId={id} />
+              </React.Fragment>
             ))}
           </div>
         </div>
@@ -135,24 +110,12 @@ export const Portfolio = () => {
                 transition={{ duration: 0.3 }}
                 className="w-full min-w-0 overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 relative group bg-gray-200 aspect-[9/16]"
               >
-                {item.type === 'video' ? (
-                  <video 
-                    src={item.src} 
-                    poster={item.poster}
-                    autoPlay 
-                    loop 
-                    muted 
-                    playsInline 
-                    className="w-full h-full object-cover pointer-events-none"
-                  />
-                ) : (
-                  <img 
-                    src={item.src} 
-                    alt={item.category} 
-                    className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                )}
+                <img
+                  src={item.src}
+                  alt={item.category}
+                  className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                  loading="lazy"
+                />
                 <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none flex items-center justify-center">
                     <span className="text-white font-bold tracking-widest uppercase text-sm bg-black/50 px-4 py-2 rounded-full backdrop-blur-sm">
                         {item.category}
