@@ -1,12 +1,22 @@
 import React from 'react';
-import { Instagram, Linkedin } from 'lucide-react';
+import { Facebook, Instagram, Linkedin, Youtube } from 'lucide-react';
 import {
   BOOK_CALL_PHONE_DISPLAY,
+  BOOK_CALL_SECONDARY_PHONE_DISPLAY,
+  BOOK_CALL_SECONDARY_TEL_HREF,
   BOOK_CALL_TEL_HREF,
   CONTACT_EMAIL,
   CONTACT_MAILTO_HREF,
+  SOCIAL_FACEBOOK_URL,
+  SOCIAL_INSTAGRAM_URL,
+  SOCIAL_LINKEDIN_URL,
+  SOCIAL_YOUTUBE_URL,
 } from '../lib/contact';
 import { SITE_LOGO_ALT, SITE_LOGO_SRC } from '../lib/siteBrand';
+
+function externalLinkProps(href: string): { target?: '_blank'; rel?: string } {
+  return href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+}
 
 export const Footer = () => {
   return (
@@ -31,7 +41,7 @@ export const Footer = () => {
         <div className="container mx-auto px-4 sm:px-6 md:px-8">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12 mb-12 sm:mb-20">
             <div>
-              <h3 className="text-brand-orange font-bold text-lg sm:text-xl mb-4 sm:mb-6">Address</h3>
+              <h3 className="text-white font-bold text-lg sm:text-xl mb-4 sm:mb-6">Address</h3>
               <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
                 Office-8, 2, C Block Road, C Block, Sector 63,<br />
                 Noida, Hazratpur Wajidpur, Uttar Pradesh 201309
@@ -39,7 +49,7 @@ export const Footer = () => {
             </div>
             
             <div>
-              <h3 className="text-brand-orange font-bold text-lg sm:text-xl mb-4 sm:mb-6">Contact</h3>
+              <h3 className="text-white font-bold text-lg sm:text-xl mb-4 sm:mb-6">Contact</h3>
               <div className="flex flex-col gap-2 text-gray-300 text-base sm:text-lg">
                 <a href={CONTACT_MAILTO_HREF} className="hover:text-white transition-colors break-all">
                   {CONTACT_EMAIL}
@@ -47,14 +57,47 @@ export const Footer = () => {
                 <a href={BOOK_CALL_TEL_HREF} className="hover:text-white transition-colors">
                   {BOOK_CALL_PHONE_DISPLAY}
                 </a>
+                <a href={BOOK_CALL_SECONDARY_TEL_HREF} className="hover:text-white transition-colors">
+                  {BOOK_CALL_SECONDARY_PHONE_DISPLAY}
+                </a>
               </div>
             </div>
 
             <div>
-              <h3 className="text-brand-orange font-bold text-lg sm:text-xl mb-4 sm:mb-6">Follow</h3>
-              <div className="flex gap-4">
-                <a href="#" className="hover:text-brand-orange transition-colors"><Instagram size={28} /></a>
-                <a href="#" className="hover:text-brand-orange transition-colors"><Linkedin size={28} /></a>
+              <h3 className="text-white font-bold text-lg sm:text-xl mb-4 sm:mb-6">Follow</h3>
+              <div className="flex flex-wrap gap-4 text-white">
+                <a
+                  href={SOCIAL_INSTAGRAM_URL}
+                  className="text-white hover:opacity-80 transition-opacity"
+                  aria-label="Instagram"
+                  {...externalLinkProps(SOCIAL_INSTAGRAM_URL)}
+                >
+                  <Instagram size={28} />
+                </a>
+                <a
+                  href={SOCIAL_YOUTUBE_URL}
+                  className="text-white hover:opacity-80 transition-opacity"
+                  aria-label="YouTube"
+                  {...externalLinkProps(SOCIAL_YOUTUBE_URL)}
+                >
+                  <Youtube size={28} />
+                </a>
+                <a
+                  href={SOCIAL_FACEBOOK_URL}
+                  className="text-white hover:opacity-80 transition-opacity"
+                  aria-label="Facebook"
+                  {...externalLinkProps(SOCIAL_FACEBOOK_URL)}
+                >
+                  <Facebook size={28} />
+                </a>
+                <a
+                  href={SOCIAL_LINKEDIN_URL}
+                  className="text-white hover:opacity-80 transition-opacity"
+                  aria-label="LinkedIn"
+                  {...externalLinkProps(SOCIAL_LINKEDIN_URL)}
+                >
+                  <Linkedin size={28} />
+                </a>
               </div>
             </div>
           </div>
