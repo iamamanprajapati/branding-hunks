@@ -1,6 +1,11 @@
 import React from 'react';
 import { Instagram, Linkedin } from 'lucide-react';
-import { BOOK_CALL_PHONE_DISPLAY, BOOK_CALL_TEL_HREF } from '../lib/contact';
+import {
+  BOOK_CALL_PHONE_DISPLAY,
+  BOOK_CALL_TEL_HREF,
+  CONTACT_EMAIL,
+  CONTACT_MAILTO_HREF,
+} from '../lib/contact';
 
 export const Footer = () => {
   return (
@@ -27,16 +32,16 @@ export const Footer = () => {
             <div>
               <h3 className="text-brand-orange font-bold text-lg sm:text-xl mb-4 sm:mb-6">Address</h3>
               <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
-                BTM Layout, 20th Main,<br />
-                1st Stage, Bengaluru 560068
+                Office-8, 2, C Block Road, C Block, Sector 63,<br />
+                Noida, Hazratpur Wajidpur, Uttar Pradesh 201309
               </p>
             </div>
             
             <div>
               <h3 className="text-brand-orange font-bold text-lg sm:text-xl mb-4 sm:mb-6">Contact</h3>
               <div className="flex flex-col gap-2 text-gray-300 text-base sm:text-lg">
-                <a href="mailto:hello@brandinghunks.media" className="hover:text-white transition-colors break-all">
-                  hello@brandinghunks.media
+                <a href={CONTACT_MAILTO_HREF} className="hover:text-white transition-colors break-all">
+                  {CONTACT_EMAIL}
                 </a>
                 <a href={BOOK_CALL_TEL_HREF} className="hover:text-white transition-colors">
                   {BOOK_CALL_PHONE_DISPLAY}

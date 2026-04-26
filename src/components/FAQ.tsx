@@ -21,7 +21,7 @@ const faqs = [
   },
   {
     question: "Where are you based?",
-    answer: "We are based in Bengaluru, India, but we work with clients globally."
+    answer: "We are based in Noida, Uttar Pradesh, India, but we work with clients globally."
   },
   {
     question: "Can we get the RAW footage or images?",
