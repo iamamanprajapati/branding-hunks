@@ -42,7 +42,7 @@ export const Footer = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 sm:gap-12 mb-12 sm:mb-20">
             <div>
               <h3 className="text-white font-bold text-lg sm:text-xl mb-4 sm:mb-6">Address</h3>
-              <p className="text-gray-300 text-base sm:text-lg leading-relaxed">
+              <p className="text-white/90 text-base sm:text-lg leading-relaxed">
                 Office-8, 2, C Block Road, C Block, Sector 63,<br />
                 Noida, Hazratpur Wajidpur, Uttar Pradesh 201309
               </p>
@@ -50,14 +50,14 @@ export const Footer = () => {
             
             <div>
               <h3 className="text-white font-bold text-lg sm:text-xl mb-4 sm:mb-6">Contact</h3>
-              <div className="flex flex-col gap-2 text-gray-300 text-base sm:text-lg">
-                <a href={CONTACT_MAILTO_HREF} className="hover:text-white transition-colors break-all">
+              <div className="flex flex-col gap-2 text-white/90 text-base sm:text-lg">
+                <a href={CONTACT_MAILTO_HREF} className="break-all underline-offset-2 hover:text-white hover:underline transition-colors">
                   {CONTACT_EMAIL}
                 </a>
-                <a href={BOOK_CALL_TEL_HREF} className="hover:text-white transition-colors">
+                <a href={BOOK_CALL_TEL_HREF} className="underline-offset-2 hover:text-white hover:underline transition-colors">
                   {BOOK_CALL_PHONE_DISPLAY}
                 </a>
-                <a href={BOOK_CALL_SECONDARY_TEL_HREF} className="hover:text-white transition-colors">
+                <a href={BOOK_CALL_SECONDARY_TEL_HREF} className="underline-offset-2 hover:text-white hover:underline transition-colors">
                   {BOOK_CALL_SECONDARY_PHONE_DISPLAY}
                 </a>
               </div>
@@ -102,23 +102,30 @@ export const Footer = () => {
             </div>
           </div>
 
-          <div className="flex flex-col md:flex-row justify-between items-end md:items-center border-t border-gray-800 pt-6 sm:pt-8 gap-6 sm:gap-8">
-            <div className="flex items-center">
+          <div className="grid grid-cols-1 gap-6 border-t border-gray-800 pt-8 sm:grid-cols-[1fr_auto_1fr] sm:items-center sm:gap-4 sm:pt-10">
+            <div className="flex justify-center sm:justify-start">
               <img
                 src={SITE_LOGO_SRC}
                 alt={SITE_LOGO_ALT}
-                className="h-16 w-auto sm:h-20 md:h-24 max-w-[min(400px,90vw)] object-contain object-left"
+                className="h-16 w-auto max-w-[min(280px,85vw)] object-contain sm:h-20 md:h-24 md:max-w-[min(400px,40vw)]"
                 width={400}
                 height={96}
                 decoding="async"
                 draggable={false}
               />
             </div>
-            
-            <div className="flex flex-col md:flex-row gap-3 sm:gap-4 md:gap-8 text-gray-500 text-xs sm:text-sm text-center md:text-left">
-              <span>© Branding Hunks 2025 | Design Agency | All Rights Reserved</span>
-              <span>website by <span className="text-gray-300 font-bold">studioARC</span></span>
-              <a href="#" className="hover:text-white transition-colors">Privacy Policy</a>
+
+            <p className="text-center text-xs text-white/90 sm:text-sm sm:px-2">
+              © Branding Hunks 2025 | Design Agency | All Rights Reserved
+            </p>
+
+            <div className="flex justify-end">
+              <a
+                href="#"
+                className="text-xs text-white/90 underline-offset-2 hover:text-white hover:underline transition-colors sm:text-sm"
+              >
+                Privacy Policy
+              </a>
             </div>
           </div>
         </div>
