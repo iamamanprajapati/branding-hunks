@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
+import { BOOK_CALL_PHONE_DISPLAY, BOOK_CALL_TEL_HREF } from '../lib/contact';
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -40,9 +41,13 @@ export const Navbar = () => {
           <a href="#services" className="hover:opacity-80 transition-opacity">Services</a>
           <a href="#process" className="hover:opacity-80 transition-opacity">Process</a>
           <a href="#about" className="hover:opacity-80 transition-opacity">About</a>
-          <button className="bg-white text-brand-blue px-6 py-2 rounded-full font-bold hover:bg-opacity-90 transition-all">
+          <a
+            href={BOOK_CALL_TEL_HREF}
+            className="inline-flex items-center justify-center bg-white text-brand-blue px-6 py-2 rounded-full font-bold hover:bg-opacity-90 transition-all"
+            aria-label={`Book a call — ${BOOK_CALL_PHONE_DISPLAY}`}
+          >
             Book a Call
-          </button>
+          </a>
         </div>
 
         <button className="md:hidden text-white p-2 -mr-2 min-w-[44px] min-h-[44px] flex items-center justify-center touch-manipulation" onClick={() => setIsOpen(!isOpen)} aria-label={isOpen ? "Close menu" : "Open menu"}>
@@ -62,9 +67,14 @@ export const Navbar = () => {
             <a href="#services" className="text-white font-medium text-lg" onClick={() => setIsOpen(false)}>Services</a>
             <a href="#process" className="text-white font-medium text-lg" onClick={() => setIsOpen(false)}>Process</a>
             <a href="#about" className="text-white font-medium text-lg" onClick={() => setIsOpen(false)}>About</a>
-            <button className="bg-white text-brand-blue px-6 py-3 rounded-full font-bold w-full">
+            <a
+              href={BOOK_CALL_TEL_HREF}
+              onClick={() => setIsOpen(false)}
+              className="inline-flex items-center justify-center bg-white text-brand-blue px-6 py-3 rounded-full font-bold w-full text-center"
+              aria-label={`Book a call — ${BOOK_CALL_PHONE_DISPLAY}`}
+            >
               Book a Call
-            </button>
+            </a>
           </motion.div>
         )}
       </AnimatePresence>

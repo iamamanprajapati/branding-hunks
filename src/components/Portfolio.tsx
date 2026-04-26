@@ -9,6 +9,7 @@ import {
   pickHomeGalleryPreviewBalanced,
 } from '../lib/galleryAssets';
 import { prefetchImageUrls } from '../lib/prefetchImages';
+import { BOOK_CALL_PHONE_DISPLAY, BOOK_CALL_TEL_HREF } from '../lib/contact';
 
 const categories = galleryCategories;
 
@@ -128,12 +129,13 @@ function PortfolioInner() {
         </div>
 
         <div className="mt-10 sm:mt-16 text-center">
-          <button
-            type="button"
-            className="bg-brand-blue text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-base sm:text-lg hover:bg-blue-800 transition-colors shadow-lg hover:shadow-xl active:scale-[0.98] transition-all duration-200 min-h-[44px]"
+          <a
+            href={BOOK_CALL_TEL_HREF}
+            className="inline-flex items-center justify-center bg-brand-blue text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-base sm:text-lg hover:bg-blue-800 transition-colors shadow-lg hover:shadow-xl active:scale-[0.98] transition-all duration-200 min-h-[44px]"
+            aria-label={`Book a call — ${BOOK_CALL_PHONE_DISPLAY}`}
           >
             Book a Call
-          </button>
+          </a>
         </div>
       </div>
     </section>

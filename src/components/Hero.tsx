@@ -1,5 +1,6 @@
 import React from 'react';
 import { heroMarqueeImageUrls } from '../lib/heroAssets';
+import { BOOK_CALL_PHONE_DISPLAY, BOOK_CALL_TEL_HREF } from '../lib/contact';
 
 /** Doubled once at module scope so the loop track length stays stable across renders. */
 const marqueeImagesDoubled = [...heroMarqueeImageUrls, ...heroMarqueeImageUrls];
@@ -55,9 +56,13 @@ export const Hero = () => {
             Trusted by India's leading D2C brands, Branding Hunks is the creative partner that turns your product into content that converts. From scroll-stopping reels to campaign-ready photos — we make your brand look as good as it performs.
           </p>
           
-          <button className="bg-brand-blue text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-sm sm:text-base hover:bg-blue-800 transition-colors shadow-lg hover:shadow-xl active:scale-[0.98] transition-all duration-200 min-h-[44px]">
+          <a
+            href={BOOK_CALL_TEL_HREF}
+            className="inline-flex items-center justify-center bg-brand-blue text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-sm sm:text-base hover:bg-blue-800 transition-colors shadow-lg hover:shadow-xl active:scale-[0.98] transition-all duration-200 min-h-[44px]"
+            aria-label={`Book a call — ${BOOK_CALL_PHONE_DISPLAY}`}
+          >
             Book a Call
-          </button>
+          </a>
         </div>
 
         <div className="relative h-[280px] sm:h-[340px] md:h-[450px] lg:h-[600px] flex gap-2 sm:gap-4 overflow-hidden mask-gradient order-1 lg:order-2">
