@@ -1,39 +1,52 @@
 import React from 'react';
-import { motion } from 'motion/react';
 
-const marqueeImages = [
-  "https://images.unsplash.com/photo-1556228552-523de5029056?q=80&w=1000&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1526947425960-945c6e72858f?q=80&w=1000&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1515378960530-7c0da6231fb1?q=80&w=1000&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1586495777744-4413f21062fa?q=80&w=1000&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1629198688000-71f23e745b6e?q=80&w=1000&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=1000&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1000&auto=format&fit=crop",
-  "https://images.unsplash.com/photo-1572635196237-14b3f281503f?q=80&w=1000&auto=format&fit=crop",
-];
+const heroAssetModules = import.meta.glob('../assets/hero_assets/*.{jpeg,jpg}', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>;
 
-const VerticalMarquee = ({ direction = "up", speed = 20 }: { direction?: "up" | "down", speed?: number }) => {
-  return (
-    <div className="h-full w-full min-w-0 overflow-hidden relative flex flex-col gap-2 sm:gap-4">
-      <motion.div
-        initial={{ y: direction === "up" ? 0 : "-50%" }}
-        animate={{ y: direction === "up" ? "-50%" : 0 }}
-        transition={{
-          repeat: Infinity,
-          ease: "linear",
-          duration: speed,
-        }}
-        className="flex flex-col gap-4"
-      >
-        {[...marqueeImages, ...marqueeImages].map((src, idx) => (
-          <div key={idx} className="relative rounded-2xl overflow-hidden aspect-[3/4] flex-shrink-0">
-            <img src={src} alt="Product" className="w-full h-full object-cover" />
-          </div>
-        ))}
-      </motion.div>
-    </div>
-  );
-};
+const marqueeImages = Object.entries(heroAssetModules)
+  .sort(([pathA], [pathB]) => {
+    const nA = Number(pathA.match(/(\d+)\.(?:jpe?g)$/i)?.[1] ?? 0);
+    const nB = Number(pathB.match(/(\d+)\.(?:jpe?g)$/i)?.[1] ?? 0);
+    return nA - nB;
+  })
+  .map(([, url]) => url);
+
+/** Doubled once at module scope so the loop track length stays stable across renders. */
+const marqueeImagesDoubled = [...marqueeImages, ...marqueeImages];
+
+const VerticalMarquee = React.memo(
+  ({ direction = "up", speed = 20 }: { direction?: 'up' | 'down'; speed?: number }) => {
+    const trackClass =
+      direction === 'up' ? 'animate-infinite-scroll-y' : 'animate-infinite-scroll-y-reverse';
+
+    return (
+      <div className="h-full w-full min-w-0 overflow-hidden relative flex flex-col gap-2 sm:gap-4 isolate">
+        <div
+          className={`flex flex-col gap-2 sm:gap-4 ${trackClass}`}
+          style={{ ['--marquee-duration' as string]: `${speed}s` }}
+        >
+          {marqueeImagesDoubled.map((src, idx) => (
+            <div
+              key={`${src}-${idx}`}
+              className="relative rounded-2xl overflow-hidden aspect-[3/4] flex-shrink-0 bg-white/5"
+            >
+              <img
+                src={src}
+                alt=""
+                className="h-full w-full object-cover pointer-events-none select-none"
+                decoding="async"
+                draggable={false}
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    );
+  }
+);
+VerticalMarquee.displayName = 'VerticalMarquee';
 
 export const Hero = () => {
   return (
