@@ -8,11 +8,20 @@ export const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
+    let raf = 0;
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        setScrolled(window.scrollY > 50);
+      });
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      if (raf) cancelAnimationFrame(raf);
+    };
   }, []);
 
   return (

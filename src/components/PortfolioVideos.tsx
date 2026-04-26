@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 /** Homepage preview cap; full library can live on a dedicated gallery page later. */
-const MAX_HOME_VIDEOS = 9;
+const MAX_HOME_VIDEOS = 12;
 
 /* YouTube Shorts: autoplay, mute, loop, no controls, 9:16. Overlay blocks all interaction. */
 const YOUTUBE_SHORTS = [
@@ -19,24 +19,61 @@ const YOUTUBE_SHORTS = [
 
 const previewVideos = YOUTUBE_SHORTS.slice(0, MAX_HOME_VIDEOS);
 
-const YouTubeShortEmbed = ({ videoId }: { videoId: string }) => {
+const LazyYouTubeShortEmbed = React.memo(function LazyYouTubeShortEmbed({
+  videoId,
+}: {
+  videoId: string;
+}) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el || active) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((e) => e.isIntersecting)) {
+          setActive(true);
+          observer.disconnect();
+        }
+      },
+      { rootMargin: '120px 0px', threshold: 0.01 },
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [active]);
+
   const embedSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&disablekb=1&fs=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3`;
+
   return (
-    <div className="relative w-full aspect-[9/16] max-w-[216px] sm:max-w-[252px] mx-auto rounded-0xl overflow-hidden bg-black shadow-xl">
-      <iframe
-        src={embedSrc}
-        title="YouTube Shorts"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-        className="absolute inset-0 w-full h-full pointer-events-none select-none"
-        style={{ border: 0 }}
-      />
-      <div className="absolute inset-0 z-10 cursor-default" aria-hidden />
+    <div
+      ref={rootRef}
+      className="relative w-full aspect-[9/16] max-w-[216px] sm:max-w-[252px] mx-auto overflow-hidden bg-neutral-900 shadow-xl"
+    >
+      {active ? (
+        <>
+          <iframe
+            src={embedSrc}
+            title="YouTube Shorts"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full pointer-events-none select-none"
+            style={{ border: 0 }}
+          />
+          <div className="absolute inset-0 z-10 cursor-default" aria-hidden />
+        </>
+      ) : (
+        <div className="absolute inset-0 flex items-center justify-center" aria-hidden>
+          <span className="text-white/40 text-xs font-medium uppercase tracking-wider">Loading…</span>
+        </div>
+      )}
     </div>
   );
-};
+});
 
-export const PortfolioVideos = () => {
+function PortfolioVideosInner() {
   return (
     <section id="videos" className="py-12 sm:py-16 md:py-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6 md:px-8">
@@ -51,10 +88,12 @@ export const PortfolioVideos = () => {
 
         <div className="grid grid-cols-[repeat(auto-fill,210px)] sm:grid-cols-[repeat(auto-fill,250px)] justify-center gap-4 sm:gap-6 md:gap-8">
           {previewVideos.map(({ id }) => (
-            <YouTubeShortEmbed key={id} videoId={id} />
+            <LazyYouTubeShortEmbed key={id} videoId={id} />
           ))}
         </div>
       </div>
     </section>
   );
-};
+}
+
+export const PortfolioVideos = React.memo(PortfolioVideosInner);

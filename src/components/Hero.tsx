@@ -1,20 +1,8 @@
 import React from 'react';
-
-const heroAssetModules = import.meta.glob('../assets/hero_assets/*.{jpeg,jpg}', {
-  eager: true,
-  import: 'default',
-}) as Record<string, string>;
-
-const marqueeImages = Object.entries(heroAssetModules)
-  .sort(([pathA], [pathB]) => {
-    const nA = Number(pathA.match(/(\d+)\.(?:jpe?g)$/i)?.[1] ?? 0);
-    const nB = Number(pathB.match(/(\d+)\.(?:jpe?g)$/i)?.[1] ?? 0);
-    return nA - nB;
-  })
-  .map(([, url]) => url);
+import { heroMarqueeImageUrls } from '../lib/heroAssets';
 
 /** Doubled once at module scope so the loop track length stays stable across renders. */
-const marqueeImagesDoubled = [...marqueeImages, ...marqueeImages];
+const marqueeImagesDoubled = [...heroMarqueeImageUrls, ...heroMarqueeImageUrls];
 
 const VerticalMarquee = React.memo(
   ({ direction = "up", speed = 20 }: { direction?: 'up' | 'down'; speed?: number }) => {
