@@ -1,6 +1,7 @@
 import React from 'react';
 import { Check, X } from 'lucide-react';
 import { BOOK_CALL_PHONE_DISPLAY, BOOK_CALL_TEL_HREF } from '../lib/contact';
+import { SITE_LOGO_ALT, SITE_LOGO_SRC } from '../lib/siteBrand';
 
 export const Comparison = () => {
   return (
@@ -37,7 +38,17 @@ export const Comparison = () => {
 
           {/* Branding Hunks */}
           <div className="bg-brand-blue rounded-2xl sm:rounded-3xl p-6 sm:p-8 md:p-12 text-white shadow-xl lg:scale-[1.02] xl:scale-105 z-10">
-            <h3 className="font-display font-black text-xl sm:text-2xl md:text-3xl mb-6 sm:mb-8">BRANDING HUNKS</h3>
+            <div className="mb-6 sm:mb-8">
+              <img
+                src={SITE_LOGO_SRC}
+                alt={SITE_LOGO_ALT}
+                className="h-14 sm:h-16 md:h-[4.5rem] w-auto max-w-[min(300px,85vw)] object-contain object-left"
+                width={300}
+                height={72}
+                decoding="async"
+                draggable={false}
+              />
+            </div>
             <ul className="space-y-4 sm:space-y-6">
               {[
                 "Deep D2C experience — we understand your customer & category.",

@@ -6,6 +6,7 @@ import {
   CONTACT_EMAIL,
   CONTACT_MAILTO_HREF,
 } from '../lib/contact';
+import { SITE_LOGO_ALT, SITE_LOGO_SRC } from '../lib/siteBrand';
 
 export const Footer = () => {
   return (
@@ -59,9 +60,16 @@ export const Footer = () => {
           </div>
 
           <div className="flex flex-col md:flex-row justify-between items-end md:items-center border-t border-gray-800 pt-6 sm:pt-8 gap-6 sm:gap-8">
-            <div className="flex flex-col leading-none font-display font-black text-4xl sm:text-5xl md:text-6xl tracking-tighter text-white">
-              <span>BRANDING</span>
-              <span>HUNKS</span>
+            <div className="flex items-center">
+              <img
+                src={SITE_LOGO_SRC}
+                alt={SITE_LOGO_ALT}
+                className="h-16 w-auto sm:h-20 md:h-24 max-w-[min(400px,90vw)] object-contain object-left"
+                width={400}
+                height={96}
+                decoding="async"
+                draggable={false}
+              />
             </div>
             
             <div className="flex flex-col md:flex-row gap-3 sm:gap-4 md:gap-8 text-gray-500 text-xs sm:text-sm text-center md:text-left">
