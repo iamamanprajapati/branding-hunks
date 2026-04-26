@@ -1,23 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { YOUTUBE_SHORT_VIDEO_IDS, youtubeShortEmbedSrc } from '../lib/youtubeShorts';
 
-/** Homepage preview cap; full library can live on a dedicated gallery page later. */
+/** Homepage preview cap for the video grid. */
 const MAX_HOME_VIDEOS = 12;
 
-/* YouTube Shorts: autoplay, mute, loop, no controls, 9:16. Overlay blocks all interaction. */
-const YOUTUBE_SHORTS = [
-  { id: '9B_bjfsrl_k' },
-  { id: 'LmVL7oYGgCE' },
-  { id: '_Vv3yHrFYpY' },
-  { id: 'd51IdYIieEg' },
-  { id: 'kU3NYcumKMQ' },
-  { id: 'uzm_jbHu_so' },
-  { id: 'lU3lhdKtRBQ' },
-  { id: 'k4hUoySQ6VE' },
-  { id: '9KwCu4HpaoU' },
-  { id: 'Hn9MsHdHWfk' },
-];
-
-const previewVideos = YOUTUBE_SHORTS.slice(0, MAX_HOME_VIDEOS);
+const previewVideoIds = YOUTUBE_SHORT_VIDEO_IDS.slice(0, MAX_HOME_VIDEOS);
 
 const LazyYouTubeShortEmbed = React.memo(function LazyYouTubeShortEmbed({
   videoId,
@@ -45,7 +32,7 @@ const LazyYouTubeShortEmbed = React.memo(function LazyYouTubeShortEmbed({
     return () => observer.disconnect();
   }, [active]);
 
-  const embedSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&disablekb=1&fs=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3`;
+  const embedSrc = youtubeShortEmbedSrc(videoId);
   const posterSrc = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
   return (
@@ -93,7 +80,7 @@ function PortfolioVideosInner() {
         </div>
 
         <div className="grid grid-cols-[repeat(auto-fill,210px)] sm:grid-cols-[repeat(auto-fill,250px)] justify-center gap-4 sm:gap-6 md:gap-8">
-          {previewVideos.map(({ id }) => (
+          {previewVideoIds.map((id) => (
             <LazyYouTubeShortEmbed key={id} videoId={id} />
           ))}
         </div>

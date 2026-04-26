@@ -37,7 +37,7 @@ export const Navbar = () => {
         </a>
 
         <div className="hidden md:flex items-center space-x-8 text-white font-medium">
-          <a href="#work" className="hover:opacity-80 transition-opacity">Work</a>
+          <a href="#videos" className="hover:opacity-80 transition-opacity">Videos</a>
           <a href="#services" className="hover:opacity-80 transition-opacity">Services</a>
           <a href="#process" className="hover:opacity-80 transition-opacity">Process</a>
           <a href="#about" className="hover:opacity-80 transition-opacity">About</a>
@@ -63,7 +63,7 @@ export const Navbar = () => {
             exit={{ opacity: 0, y: -20 }}
             className="absolute top-full left-0 right-0 bg-brand-blue border-t border-white/10 p-4 pb-[max(1rem,env(safe-area-inset-bottom))] md:hidden flex flex-col space-y-4 shadow-xl max-h-[calc(100dvh-4rem)] overflow-y-auto"
           >
-            <a href="#work" className="text-white font-medium text-lg" onClick={() => setIsOpen(false)}>Work</a>
+            <a href="#videos" className="text-white font-medium text-lg" onClick={() => setIsOpen(false)}>Videos</a>
             <a href="#services" className="text-white font-medium text-lg" onClick={() => setIsOpen(false)}>Services</a>
             <a href="#process" className="text-white font-medium text-lg" onClick={() => setIsOpen(false)}>Process</a>
             <a href="#about" className="text-white font-medium text-lg" onClick={() => setIsOpen(false)}>About</a>
