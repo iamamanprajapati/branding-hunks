@@ -22,7 +22,19 @@
   }
   /* Infinite scroll: move by 50% so duplicate content creates seamless loop */
   .animate-infinite-scroll {
-    animation: infinite-scroll linear infinite;
+    animation: infinite-scroll var(--marquee-duration-x, 40s) linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+  .animate-infinite-scroll-x {
+    animation: infinite-scroll var(--marquee-duration-x, 40s) linear infinite;
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+  .animate-infinite-scroll-x-reverse {
+    animation: infinite-scroll var(--marquee-duration-x, 40s) linear infinite reverse;
+    will-change: transform;
+    backface-visibility: hidden;
   }
   @keyframes infinite-scroll {
     0% { transform: translateX(0); }
@@ -50,10 +62,22 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .animate-infinite-scroll,
+    .animate-infinite-scroll-x,
+    .animate-infinite-scroll-x-reverse,
     .animate-infinite-scroll-y,
     .animate-infinite-scroll-y-reverse {
       animation: none;
     }
+  }
+
+  @keyframes spin-slow {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  .animate-spin-slow {
+    animation: spin-slow 8s linear infinite;
   }
 }
 

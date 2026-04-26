@@ -25,6 +25,8 @@ const VerticalMarquee = React.memo(
                 alt=""
                 className="h-full w-full object-cover pointer-events-none select-none"
                 decoding="async"
+                loading={idx < 5 ? 'eager' : 'lazy'}
+                fetchPriority={idx < 3 ? 'high' : 'low'}
                 draggable={false}
               />
             </div>

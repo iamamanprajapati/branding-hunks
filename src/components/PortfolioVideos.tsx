@@ -46,6 +46,7 @@ const LazyYouTubeShortEmbed = React.memo(function LazyYouTubeShortEmbed({
   }, [active]);
 
   const embedSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&disablekb=1&fs=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3`;
+  const posterSrc = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
 
   return (
     <div
@@ -65,9 +66,14 @@ const LazyYouTubeShortEmbed = React.memo(function LazyYouTubeShortEmbed({
           <div className="absolute inset-0 z-10 cursor-default" aria-hidden />
         </>
       ) : (
-        <div className="absolute inset-0 flex items-center justify-center" aria-hidden>
-          <span className="text-white/40 text-xs font-medium uppercase tracking-wider">Loading…</span>
-        </div>
+        <img
+          src={posterSrc}
+          alt=""
+          className="absolute inset-0 w-full h-full object-cover"
+          loading="lazy"
+          decoding="async"
+          draggable={false}
+        />
       )}
     </div>
   );

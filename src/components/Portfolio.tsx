@@ -21,10 +21,17 @@ function prefetchWorkCategory(cat: string) {
     .filter((item) => item.category === cat)
     .slice(0, HOME_GALLERY_MAX)
     .map((item) => item.src);
-  if (urls.length) prefetchImageUrls(urls, { staggerMs: 72 });
+  if (urls.length) prefetchImageUrls(urls, { deferToIdle: false, staggerMs: 40 });
 }
 
-const PortfolioTile = React.memo(function PortfolioTile({ item }: { item: GalleryPortfolioItem }) {
+const PortfolioTile = React.memo(function PortfolioTile({
+  item,
+  tileIndex,
+}: {
+  item: GalleryPortfolioItem;
+  tileIndex: number;
+}) {
+  const eager = tileIndex < 10;
   return (
     <div className="w-full min-w-0 overflow-hidden shadow-lg hover:shadow-xl transition-shadow duration-300 relative group bg-gray-200 aspect-[9/16]">
       <img
@@ -32,9 +39,9 @@ const PortfolioTile = React.memo(function PortfolioTile({ item }: { item: Galler
         alt={item.category}
         className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-500 motion-reduce:transition-none motion-reduce:group-hover:scale-100"
         sizes="(max-width: 640px) 210px, 250px"
-        loading="lazy"
+        loading={eager ? 'eager' : 'lazy'}
         decoding="async"
-        fetchPriority="low"
+        fetchPriority={eager ? (tileIndex < 4 ? 'high' : 'auto') : 'low'}
         draggable={false}
       />
       <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none flex items-center justify-center">
@@ -59,7 +66,7 @@ function PortfolioInner() {
       ([entry]) => {
         if (!entry?.isIntersecting || didPrefetchDefaultWork.current) return;
         didPrefetchDefaultWork.current = true;
-        prefetchImageUrls(homeGalleryPreviewUrls, { staggerMs: 52 });
+        prefetchImageUrls(homeGalleryPreviewUrls, { deferToIdle: false, staggerMs: 20 });
         observer.disconnect();
       },
       { rootMargin: '480px 0px', threshold: 0 },
@@ -115,8 +122,8 @@ function PortfolioInner() {
         </div>
 
         <div className="grid grid-cols-[repeat(auto-fill,210px)] sm:grid-cols-[repeat(auto-fill,250px)] justify-center gap-4 sm:gap-6 md:gap-8">
-          {filteredItems.map((item) => (
-            <PortfolioTile key={item.key} item={item} />
+          {filteredItems.map((item, i) => (
+            <PortfolioTile key={item.key} item={item} tileIndex={i} />
           ))}
         </div>
 

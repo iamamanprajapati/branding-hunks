@@ -5,6 +5,7 @@
 
 import React, { useEffect } from 'react';
 import { heroMarqueeImageUrls } from './lib/heroAssets';
+import { homeGalleryPreviewUrls } from './lib/galleryAssets';
 import { prefetchImageUrls } from './lib/prefetchImages';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
@@ -21,8 +22,10 @@ import { FloatingButton } from './components/FloatingButton';
 
 export default function App() {
   useEffect(() => {
-    // Only a few hero shots above the fold — avoid prefetching every marquee + full gallery (large JPEGs + decode was blocking scroll).
-    prefetchImageUrls(heroMarqueeImageUrls.slice(0, 5), { staggerMs: 64 });
+    // Warm hero + homepage grid as soon as the app mounts so repeat visits (HTTP cache) paint without lazy “pop-in”.
+    // Light stagger avoids decoding every large JPEG in the same frame on a cold load.
+    prefetchImageUrls(heroMarqueeImageUrls, { deferToIdle: false, staggerMs: 28 });
+    prefetchImageUrls(homeGalleryPreviewUrls, { deferToIdle: false, staggerMs: 24 });
   }, []);
 
   return (

@@ -1,33 +1,40 @@
 import React from 'react';
-import { motion } from 'motion/react';
 
 const logos = [
   "Khadi Natural", "Krishna's", "Leafy Affair", "Natch", "Nourish You", "One Good", "Perfora", "Quirksmith",
   "Varalife", "Wakefit", "Yes Bank", "Bajaj Finserv", "Aroma Treasures", "Aramya"
 ];
 
-const LogoMarquee = ({ items, direction = "left", speed = 30 }: { items: string[], direction?: "left" | "right", speed?: number }) => {
+/** GPU-friendly horizontal loop (duplicate row once; translate -50% matches `infinite-scroll` keyframes). */
+const LogoMarquee = ({
+  items,
+  direction = 'left',
+  speed = 30,
+}: {
+  items: string[];
+  direction?: 'left' | 'right';
+  speed?: number;
+}) => {
+  const track = [...items, ...items];
+  const trackClass = direction === 'left' ? 'animate-infinite-scroll-x' : 'animate-infinite-scroll-x-reverse';
+
   return (
     <div className="relative flex overflow-hidden select-none">
       <div className="absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
       <div className="absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
-      
-      <motion.div
-        initial={{ x: direction === "left" ? 0 : "-50%" }}
-        animate={{ x: direction === "left" ? "-50%" : 0 }}
-        transition={{
-          repeat: Infinity,
-          ease: "linear",
-          duration: speed,
-        }}
-        className="flex flex-shrink-0 gap-8 sm:gap-12 md:gap-16 py-4 sm:py-6 items-center pr-8 sm:pr-16"
+
+      <div
+        className={`flex flex-shrink-0 gap-8 sm:gap-12 md:gap-16 py-4 sm:py-6 items-center pr-8 sm:pr-16 ${trackClass}`}
+        style={{ ['--marquee-duration-x' as string]: `${speed}s` }}
       >
-        {[...items, ...items, ...items, ...items].map((logo, idx) => (
-          <div key={idx} className="flex justify-center items-center whitespace-nowrap">
-             <span className="font-display font-bold text-lg sm:text-xl md:text-2xl text-gray-800 opacity-60 hover:opacity-100 transition-opacity cursor-default">{logo}</span>
+        {track.map((logo, idx) => (
+          <div key={`${logo}-${idx}`} className="flex justify-center items-center whitespace-nowrap">
+            <span className="font-display font-bold text-lg sm:text-xl md:text-2xl text-gray-800 opacity-60 hover:opacity-100 transition-opacity cursor-default">
+              {logo}
+            </span>
           </div>
         ))}
-      </motion.div>
+      </div>
     </div>
   );
 };
