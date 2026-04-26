@@ -15,3 +15,8 @@ export const YOUTUBE_SHORT_VIDEO_IDS: readonly string[] = [
 export function youtubeShortEmbedSrc(videoId: string): string {
   return `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&disablekb=1&fs=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3`;
 }
+
+/** Static thumbnail served by YouTube; use before loading the embed iframe. */
+export function youtubeShortPosterSrc(videoId: string): string {
+  return `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+}

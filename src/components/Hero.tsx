@@ -1,6 +1,10 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { BOOK_CALL_PHONE_DISPLAY, BOOK_CALL_TEL_HREF } from '../lib/contact';
-import { YOUTUBE_SHORT_VIDEO_IDS, youtubeShortEmbedSrc } from '../lib/youtubeShorts';
+import {
+  YOUTUBE_SHORT_VIDEO_IDS,
+  youtubeShortEmbedSrc,
+  youtubeShortPosterSrc,
+} from '../lib/youtubeShorts';
 
 /** Split IDs into three disjoint lists so no video appears in more than one column. */
 function splitIdsForHeroColumns(ids: readonly string[]): [string[], string[], string[]] {
@@ -18,6 +22,79 @@ function splitIdsForHeroColumns(ids: readonly string[]): [string[], string[], st
 
 const [heroMarqueeCol0, heroMarqueeCol1, heroMarqueeCol2] =
   splitIdsForHeroColumns(YOUTUBE_SHORT_VIDEO_IDS);
+
+/** Poster first; load autoplay iframe only when near the viewport, staggered to avoid burst-loading many players. */
+const LazyHeroYouTubeCell = React.memo(function LazyHeroYouTubeCell({
+  videoId,
+  staggerIndex,
+}: {
+  videoId: string;
+  staggerIndex: number;
+}) {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el || active) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (!entries.some((e) => e.isIntersecting)) return;
+        observer.disconnect();
+        const staggerMs = (staggerIndex % 8) * 180;
+        timeoutRef.current = setTimeout(() => {
+          setActive(true);
+          timeoutRef.current = null;
+        }, staggerMs);
+      },
+      { rootMargin: '100px 0px', threshold: 0.08 },
+    );
+
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = null;
+      }
+    };
+  }, [active, staggerIndex]);
+
+  const embedSrc = youtubeShortEmbedSrc(videoId);
+  const posterSrc = youtubeShortPosterSrc(videoId);
+
+  return (
+    <div
+      ref={rootRef}
+      className="relative rounded-2xl overflow-hidden aspect-[9/16] flex-shrink-0 bg-black"
+    >
+      {active ? (
+        <>
+          <iframe
+            src={embedSrc}
+            title="Branding Hunks work preview"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            className="absolute inset-0 h-full w-full pointer-events-none select-none"
+            style={{ border: 0 }}
+            loading="lazy"
+          />
+          <div className="absolute inset-0 z-10 pointer-events-none" aria-hidden />
+        </>
+      ) : (
+        <img
+          src={posterSrc}
+          alt=""
+          className="absolute inset-0 h-full w-full object-cover"
+          loading="lazy"
+          decoding="async"
+          draggable={false}
+        />
+      )}
+    </div>
+  );
+});
 
 const VerticalMarquee = React.memo(
   ({
@@ -40,20 +117,7 @@ const VerticalMarquee = React.memo(
           style={{ ['--marquee-duration' as string]: `${speed}s` }}
         >
           {track.map((videoId, idx) => (
-            <div
-              key={`${videoId}-${idx}`}
-              className="relative rounded-2xl overflow-hidden aspect-[9/16] flex-shrink-0 bg-black"
-            >
-              <iframe
-                src={youtubeShortEmbedSrc(videoId)}
-                title="Branding Hunks work preview"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                className="absolute inset-0 h-full w-full pointer-events-none select-none"
-                style={{ border: 0 }}
-                loading={idx < 2 ? 'eager' : 'lazy'}
-              />
-              <div className="absolute inset-0 z-10 pointer-events-none" aria-hidden />
-            </div>
+            <LazyHeroYouTubeCell key={`${videoId}-${idx}`} videoId={videoId} staggerIndex={idx} />
           ))}
         </div>
       </div>

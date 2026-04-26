@@ -1,5 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { YOUTUBE_SHORT_VIDEO_IDS, youtubeShortEmbedSrc } from '../lib/youtubeShorts';
+import {
+  YOUTUBE_SHORT_VIDEO_IDS,
+  youtubeShortEmbedSrc,
+  youtubeShortPosterSrc,
+} from '../lib/youtubeShorts';
 
 /** Homepage preview cap for the video grid. */
 const MAX_HOME_VIDEOS = 12;
@@ -33,7 +37,7 @@ const LazyYouTubeShortEmbed = React.memo(function LazyYouTubeShortEmbed({
   }, [active]);
 
   const embedSrc = youtubeShortEmbedSrc(videoId);
-  const posterSrc = `https://i.ytimg.com/vi/${videoId}/hqdefault.jpg`;
+  const posterSrc = youtubeShortPosterSrc(videoId);
 
   return (
     <div
