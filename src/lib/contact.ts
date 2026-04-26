@@ -1,8 +1,8 @@
 /** Primary line — `tel:` for “Book a Call” and first number in footer. */
-export const BOOK_CALL_TEL_HREF = 'tel:+917007600273';
+export const BOOK_CALL_TEL_HREF = 'tel:+918683016562';
 
 /** Primary — human-readable. */
-export const BOOK_CALL_PHONE_DISPLAY = '+91 70076 00273';
+export const BOOK_CALL_PHONE_DISPLAY = '+91 86830 16562';
 
 /** Secondary line — listed under primary in footer. */
 export const BOOK_CALL_SECONDARY_TEL_HREF = 'tel:+919013590704';
