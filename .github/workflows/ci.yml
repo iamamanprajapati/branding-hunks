@@ -1,0 +1,32 @@
+# Runs on every push to main and on pull requests targeting main.
+# Keeps main buildable; pair this with Vercel’s “Git” integration for automatic production deploys.
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run lint
+
+      - name: Build
+        run: npm run build
+        env:
+          # Optional: set in repo → Settings → Secrets and variables → Actions if the app needs it at build time
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
