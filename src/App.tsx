@@ -9,6 +9,7 @@ import { Hero } from './components/Hero';
 import { TrustedBy } from './components/TrustedBy';
 import { Services } from './components/Services';
 import { Portfolio } from './components/Portfolio';
+import { PortfolioVideos } from './components/PortfolioVideos';
 import { Process } from './components/Process';
 import { Comparison } from './components/Comparison';
 import { Testimonials } from './components/Testimonials';
@@ -24,6 +25,7 @@ export default function App() {
       <TrustedBy />
       <Services />
       <Portfolio />
+      <PortfolioVideos />
       <Process />
       <Comparison />
       <Testimonials />

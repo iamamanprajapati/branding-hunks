@@ -1,62 +1,54 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
 
-/* YouTube Shorts: autoplay, mute, loop, no controls, 9:16. Overlay blocks all interaction. */
-const YOUTUBE_SHORTS = [
-  { id: '9B_bjfsrl_k' },
-  { id: 'LmVL7oYGgCE' },
-  { id: '_Vv3yHrFYpY' },
-  { id: 'd51IdYIieEg' },
-  { id: 'kU3NYcumKMQ' },
-  { id: 'uzm_jbHu_so' },
-  { id: 'lU3lhdKtRBQ' },
-  { id: 'k4hUoySQ6VE' },
-  { id: '9KwCu4HpaoU' },
-  { id: 'Hn9MsHdHWfk' },
-];
+/** Homepage preview cap per section; expand on a dedicated gallery page later. */
+const MAX_HOME_IMAGES = 9;
 
-const YouTubeShortEmbed = ({ videoId }: { videoId: string }) => {
-  const embedSrc = `https://www.youtube.com/embed/${videoId}?autoplay=1&mute=1&loop=1&playlist=${videoId}&controls=0&disablekb=1&fs=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3`;
-  return (
-    <div className="relative w-full aspect-[9/16] max-w-[216px] sm:max-w-[252px] mx-auto rounded-0xl overflow-hidden bg-black shadow-xl">
-      <iframe
-        src={embedSrc}
-        title="YouTube Shorts"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        allowFullScreen
-        className="absolute inset-0 w-full h-full pointer-events-none select-none"
-        style={{ border: 0 }}
-      />
-      {/* Invisible overlay: blocks pause/click so video is view-only */}
-      <div className="absolute inset-0 z-10 cursor-default" aria-hidden />
-    </div>
-  );
-};
+const galleryAssetModules = import.meta.glob('../assets/gallary_assets/**/*.{webp,jpeg,jpg,png}', {
+  eager: true,
+  import: 'default',
+}) as Record<string, string>;
 
-const categories = ['All', 'Fashion', 'Pets', 'Kids'];
+function folderNameToCategoryLabel(folder: string): string {
+  return folder.charAt(0).toUpperCase() + folder.slice(1);
+}
 
-const portfolioItems = [
-  {
-    src: 'https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=800&auto=format&fit=crop',
-    category: 'Fashion',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=800&auto=format&fit=crop',
-    category: 'Pets',
-  },
-  {
-    src: 'https://images.unsplash.com/photo-1515488042361-ee00e0ddd4e4?q=80&w=800&auto=format&fit=crop',
-    category: 'Kids',
-  },
+const portfolioItems = Object.entries(galleryAssetModules)
+  .map(([path, src]) => {
+    const match = path.match(/gallary_assets\/([^/]+)\//);
+    const folder = match?.[1];
+    if (!folder) return null;
+    return {
+      key: path,
+      src,
+      category: folderNameToCategoryLabel(folder),
+    };
+  })
+  .filter((item): item is { key: string; src: string; category: string } => item !== null)
+  .sort((a, b) => {
+    const byCat = a.category.localeCompare(b.category);
+    if (byCat !== 0) return byCat;
+    return a.key.localeCompare(b.key);
+  });
+
+const categories = [
+  'All',
+  ...Array.from(new Set(portfolioItems.map((item) => item.category))).sort((a, b) =>
+    a.localeCompare(b),
+  ),
 ];
 
 export const Portfolio = () => {
   const [activeCategory, setActiveCategory] = useState("All");
 
-  const filteredItems = activeCategory === "All" 
-    ? portfolioItems 
-    : portfolioItems.filter(item => item.category === activeCategory);
+  const filteredItems = useMemo(() => {
+    const list =
+      activeCategory === "All"
+        ? portfolioItems
+        : portfolioItems.filter((item) => item.category === activeCategory);
+    return list.slice(0, MAX_HOME_IMAGES);
+  }, [activeCategory]);
 
   return (
     <section id="work" className="py-12 sm:py-16 md:py-20 bg-gray-50">
@@ -87,22 +79,11 @@ export const Portfolio = () => {
           </div>
         </div>
 
-        {/* YouTube Shorts: same grid & gap as image grid below */}
-        <div className="mb-12 sm:mb-8">
-          <div className="grid grid-cols-[repeat(auto-fill,210px)] sm:grid-cols-[repeat(auto-fill,250px)] justify-center gap-4 sm:gap-6 md:gap-8">
-            {YOUTUBE_SHORTS.map(({ id }, idx) => (
-              <React.Fragment key={idx}>
-                <YouTubeShortEmbed videoId={id} />
-              </React.Fragment>
-            ))}
-          </div>
-        </div>
-
         <div className="grid grid-cols-[repeat(auto-fill,210px)] sm:grid-cols-[repeat(auto-fill,250px)] justify-center gap-4 sm:gap-6 md:gap-8">
           <AnimatePresence>
-            {filteredItems.map((item, idx) => (
+            {filteredItems.map((item) => (
               <motion.div
-                key={idx}
+                key={item.key}
                 layout
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
