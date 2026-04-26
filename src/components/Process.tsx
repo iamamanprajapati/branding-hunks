@@ -1,45 +1,55 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
+import understandImg from '../assets/process_assets/understand.png';
+import createImg from '../assets/process_assets/create.png';
+import approveImg from '../assets/process_assets/approve.png';
+import shootImg from '../assets/process_assets/shoot.png';
+import editImg from '../assets/process_assets/edit.png';
+import refineImg from '../assets/process_assets/refine.png';
 
 const steps = [
   {
-    id: "01",
-    title: "Understand",
-    description: "We deep-dive into your brand, product and target customer to define the creative brief and conversion goal.",
-    videoId: "x1WMLywZWGM"
+    id: '01',
+    title: 'Understand',
+    description:
+      'We deep-dive into your brand, product and target customer to define the creative brief and conversion goal.',
+    image: understandImg,
   },
   {
-    id: "02",
-    title: "Create",
-    description: "Our creative team brainstorms concepts, storyboards, and mood boards tailored to your brand identity.",
-    videoId: "9oBThSPGiHg"
+    id: '02',
+    title: 'Create',
+    description:
+      'Our creative team brainstorms concepts, storyboards, and mood boards tailored to your brand identity.',
+    image: createImg,
   },
   {
-    id: "03",
-    title: "Approve",
-    description: "We present the concepts for your feedback and approval before moving to production.",
-    videoId: "N2HDqvGbnz8"
+    id: '03',
+    title: 'Approve',
+    description: 'We present the concepts for your feedback and approval before moving to production.',
+    image: approveImg,
   },
   {
-    id: "04",
-    title: "Shoot",
-    description: "Our production team handles everything from casting to location scouting and the actual shoot.",
-    videoId: "fGxEZkpH8sw"
+    id: '04',
+    title: 'Shoot',
+    description:
+      'Our production team handles everything from casting to location scouting and the actual shoot.',
+    image: shootImg,
   },
   {
-    id: "05",
-    title: "Edit",
-    description: "Post-production magic happens here. Editing, color grading, sound design, and graphics.",
-    videoId: "S3fnBU5CKik"
+    id: '05',
+    title: 'Edit',
+    description:
+      'Post-production magic happens here. Editing, color grading, sound design, and graphics.',
+    image: editImg,
   },
   {
-    id: "06",
-    title: "Refine",
-    description: "We deliver the assets and make necessary refinements based on your feedback.",
-    videoId: "het26ww6bIE"
-  }
-];
+    id: '06',
+    title: 'Refine',
+    description: 'We deliver the assets and make necessary refinements based on your feedback.',
+    image: refineImg,
+  },
+] as const;
 
 export const Process = () => {
   const [activeStep, setActiveStep] = useState(0);
@@ -111,18 +121,16 @@ export const Process = () => {
                 transition={{ duration: 0.3 }}
                 className="absolute inset-0 w-full h-full"
               >
-                <iframe
-                  src={`https://www.youtube.com/embed/${steps[activeStep].videoId}?autoplay=1&mute=1&loop=1&playlist=${steps[activeStep].videoId}&controls=0&disablekb=1&fs=0&modestbranding=1&playsinline=1&rel=0&iv_load_policy=3`}
-                  title={steps[activeStep].title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                  allowFullScreen
-                  className="absolute inset-0 w-full h-full pointer-events-none select-none"
-                  style={{ border: 0 }}
+                <img
+                  src={steps[activeStep].image}
+                  alt={steps[activeStep].title}
+                  className="absolute inset-0 h-full w-full object-cover select-none"
+                  decoding="async"
+                  loading={activeStep === 0 ? 'eager' : 'lazy'}
+                  draggable={false}
                 />
               </motion.div>
             </AnimatePresence>
-            <div className="absolute inset-0 z-10 pointer-events-auto cursor-default" aria-hidden />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent pointer-events-none" />
           </div>
         </div>
       </div>
