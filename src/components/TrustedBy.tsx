@@ -53,7 +53,7 @@ export const TrustedBy = () => {
     <section className="py-12 sm:py-16 md:py-20 bg-white overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 text-center mb-10 sm:mb-16">
         <h2 className="font-display font-black text-xl sm:text-2xl md:text-4xl text-black mb-3 sm:mb-4 px-2">
-          Trusted Creative Partner for <span className="text-brand-blue">150+ D2C Brands</span>
+          Trusted Creative Partner for <span className="text-brand-orange">150+ D2C Brands</span>
         </h2>
         <p className="text-gray-500 text-sm sm:text-base max-w-3xl mx-auto px-2">
           We've partnered with some of India's most loved D2C names across beauty, health and wellness, fashion, food, skincare and lifestyle.

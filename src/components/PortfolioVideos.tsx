@@ -76,7 +76,7 @@ function PortfolioVideosInner() {
       <div className="container mx-auto px-4 sm:px-6 md:px-8">
         <div className="text-center mb-8 sm:mb-12">
           <h2 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-black mb-3 sm:mb-4">
-            Video <span className="text-brand-blue">highlights</span>
+            Video <span className="text-brand-orange">highlights</span>
           </h2>
           <p className="text-gray-500 text-base">
             Short-form work in motion — a curated preview of what we produce.

@@ -21,7 +21,7 @@ function externalLinkProps(href: string): { target?: '_blank'; rel?: string } {
 export const Footer = () => {
   return (
     <>
-      <section className="bg-brand-orange py-12 sm:py-16 md:py-20">
+      <section className="bg-brand-gradient py-12 sm:py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6 md:px-8 flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8">
           <h2 className="font-display font-black text-xl sm:text-2xl md:text-4xl text-white max-w-3xl leading-tight text-center md:text-left">
             Let's talk about how we can <br className="hidden sm:block" />
@@ -29,7 +29,7 @@ export const Footer = () => {
           </h2>
           <a
             href={BOOK_CALL_TEL_HREF}
-            className="inline-flex items-center justify-center bg-brand-blue text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-sm sm:text-base hover:bg-blue-800 transition-colors shadow-lg hover:shadow-xl active:scale-[0.98] transition-all duration-200 whitespace-nowrap min-h-[44px]"
+            className="inline-flex items-center justify-center bg-brand-dark text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-sm sm:text-base hover:bg-black/90 transition-colors shadow-lg hover:shadow-xl active:scale-[0.98] transition-all duration-200 whitespace-nowrap min-h-[44px]"
             aria-label={`Book a call — ${BOOK_CALL_PHONE_DISPLAY}`}
           >
             Book a Call

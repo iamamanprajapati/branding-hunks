@@ -74,7 +74,7 @@ export const Testimonials = () => {
       <div className="container mx-auto px-4 sm:px-6 md:px-8">
         <div className="text-center mb-10 sm:mb-16">
           <h2 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-black mb-3 sm:mb-4">
-            What <span className="text-brand-blue">our clients</span> say
+            What <span className="text-brand-orange">our clients</span> say
           </h2>
           <p className="text-gray-500 text-sm sm:text-base max-w-2xl mx-auto">
             When you work with Branding Hunks, you work with a team that gets D2C. We've shot for fast-growing Indian brands, handled complex briefs, and helped products go viral.
@@ -87,7 +87,7 @@ export const Testimonials = () => {
             <button
               type="button"
               onClick={scrollPrev}
-              className="bg-brand-orange text-white p-3 rounded-full shadow-lg pointer-events-auto hover:bg-orange-600 active:scale-95 transition-colors min-w-[48px] min-h-[48px] flex items-center justify-center"
+              className="bg-brand-orange text-white p-3 rounded-full shadow-lg pointer-events-auto hover:brightness-110 active:scale-95 transition-all min-w-[48px] min-h-[48px] flex items-center justify-center"
               aria-label="Previous testimonial"
             >
               <ChevronLeft size={24} />
@@ -95,7 +95,7 @@ export const Testimonials = () => {
             <button
               type="button"
               onClick={scrollNext}
-              className="bg-brand-orange text-white p-3 rounded-full shadow-lg pointer-events-auto hover:bg-orange-600 active:scale-95 transition-colors min-w-[48px] min-h-[48px] flex items-center justify-center"
+              className="bg-brand-orange text-white p-3 rounded-full shadow-lg pointer-events-auto hover:brightness-110 active:scale-95 transition-all min-w-[48px] min-h-[48px] flex items-center justify-center"
               aria-label="Next testimonial"
             >
               <ChevronRight size={24} />

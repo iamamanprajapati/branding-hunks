@@ -9,7 +9,7 @@ export const Comparison = () => {
       <div className="container mx-auto px-4 sm:px-6 md:px-8">
         <div className="text-center mb-10 sm:mb-16">
           <h2 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-black">
-            What <span className="text-brand-blue">makes us</span> different
+            What <span className="text-brand-orange">makes us</span> different
           </h2>
         </div>
 
@@ -72,7 +72,7 @@ export const Comparison = () => {
         <div className="mt-10 sm:mt-16 text-center">
           <a
             href={BOOK_CALL_TEL_HREF}
-            className="inline-flex items-center justify-center bg-brand-blue text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-base sm:text-lg hover:bg-blue-800 transition-colors shadow-lg hover:shadow-xl active:scale-[0.98] transition-all duration-200 min-h-[44px]"
+            className="inline-flex items-center justify-center bg-brand-blue text-white px-6 sm:px-8 py-3 sm:py-4 rounded-lg font-bold text-base sm:text-lg hover:bg-brand-dark transition-colors shadow-lg hover:shadow-xl active:scale-[0.98] transition-all duration-200 min-h-[44px]"
             aria-label={`Book a call — ${BOOK_CALL_PHONE_DISPLAY}`}
           >
             Book a Call

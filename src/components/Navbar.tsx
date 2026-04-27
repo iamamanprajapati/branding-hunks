@@ -29,7 +29,7 @@ export const Navbar = () => {
   return (
     <nav className={cn(
       'fixed top-0 left-0 right-0 z-50 transition-colors duration-300 pt-[env(safe-area-inset-top)]',
-      scrolled ? 'bg-brand-blue/90 backdrop-blur-md' : '',
+      scrolled ? 'bg-brand-dark/92 backdrop-blur-md border-b border-white/5' : '',
     )}>
       <div className="container relative mx-auto flex min-h-16 items-center px-4 py-4 sm:min-h-[4.5rem] sm:px-6 md:min-h-24 md:px-8">
         {/* Out of document flow so nav links / CTA can use full row width */}

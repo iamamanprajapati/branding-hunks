@@ -4,10 +4,31 @@
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
   --font-display: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
-  
-  --color-brand-blue: #7c3aed; /* Violet 600 */
-  --color-brand-orange: #0f172a; /* Slate 900 */
-  --color-brand-dark: #020617; /* Slate 950 */
+
+  /* Core brand — peak red from logo gradient */
+  --color-brand-orange: #D7353A;
+  /* Deep purple-black — nav, chrome, primary buttons */
+  --color-brand-blue: #1a0d22;
+  --color-brand-dark: #0c060e;
+  /* Soft highlight on gradient hero */
+  --color-brand-cream: #fff5f6;
+  /* Marquee / edge fades (matches gradient ends) */
+  --color-brand-gradient-fade: #0a060c;
+
+  /* Logo-style vertical glow: burgundy → red → magenta → purple → black */
+  --background-image-brand-gradient: linear-gradient(
+    180deg,
+    #0c0608 0%,
+    #16090d 10%,
+    #3f1219 24%,
+    #7a1f28 36%,
+    #D7353A 48%,
+    #c42a62 58%,
+    #8c2772 70%,
+    #4a1a48 84%,
+    #1a0d1e 94%,
+    #070508 100%
+  );
 }
 
 @layer utilities {
