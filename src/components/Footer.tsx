@@ -43,8 +43,8 @@ export const Footer = () => {
             <div>
               <h3 className="text-white font-bold text-lg sm:text-xl mb-4 sm:mb-6">Address</h3>
               <p className="text-white/90 text-base sm:text-lg leading-relaxed">
-                Office-8, 2, C Block Road, C Block, Sector 63,<br />
-                Noida, Hazratpur Wajidpur, Uttar Pradesh 201309
+                Office No. 8/2, C-4, Block-C, Rays Business Park,<br />
+                Kaida Sector-63, 201309
               </p>
             </div>
             
