@@ -21,7 +21,7 @@ function externalLinkProps(href: string): { target?: '_blank'; rel?: string } {
 export const Footer = () => {
   return (
     <>
-      <section className="bg-brand-gradient py-12 sm:py-16 md:py-20">
+      <section className="bg-brand-gradient-cta py-12 sm:py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6 md:px-8 flex flex-col md:flex-row items-center justify-between gap-6 sm:gap-8">
           <h2 className="font-display font-black text-xl sm:text-2xl md:text-4xl text-white max-w-3xl leading-tight text-center md:text-left">
             Let's talk about how we can <br className="hidden sm:block" />

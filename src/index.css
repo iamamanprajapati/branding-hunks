@@ -15,20 +15,45 @@
   /* Marquee / edge fades (matches gradient ends) */
   --color-brand-gradient-fade: #0a060c;
 
-  /* Logo-style vertical glow: burgundy → red → magenta → purple → black */
+  /*
+   * Full-height sections (hero): many small steps so blends stay smooth on tall viewports.
+   */
   --background-image-brand-gradient: linear-gradient(
     180deg,
-    #0c0608 0%,
-    #16090d 10%,
-    #3f1219 24%,
-    #7a1f28 36%,
-    #D7353A 48%,
-    #c42a62 58%,
-    #8c2772 70%,
-    #4a1a48 84%,
-    #1a0d1e 94%,
-    #070508 100%
+    #080508 0%,
+    #0c0708 6%,
+    #12090c 12%,
+    #1a0d11 18%,
+    #241016 24%,
+    #32141c 30%,
+    #451a22 36%,
+    #5c2129 42%,
+    #7a2832 47%,
+    #a02f3a 50%,
+    #D7353A 52%,
+    #c9324a 56%,
+    #b42d52 60%,
+    #94285a 66%,
+    #6f224f 74%,
+    #4a1a3d 82%,
+    #2a1228 90%,
+    #160a14 96%,
+    #080608 100%
   );
+
+  /*
+   * Short CTA strips: radial center glow + deep edges avoids “stacked bands” when height is small.
+   */
+  --background-image-brand-gradient-cta: radial-gradient(
+      ellipse 85% 145% at 50% 38%,
+      #e04045 0%,
+      #D7353A 18%,
+      #b32d45 38%,
+      #6a2448 58%,
+      #2a141f 78%,
+      #0e080a 100%
+    ),
+    linear-gradient(180deg, #0a0608 0%, #0f080a 45%, #0a0608 100%);
 }
 
 @layer utilities {
