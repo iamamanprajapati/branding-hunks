@@ -1,15 +1,27 @@
 import React, { useState, useEffect } from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
 import { BOOK_CALL_PHONE_DISPLAY, BOOK_CALL_TEL_HREF } from '../lib/contact';
 import { SITE_LOGO_ALT, SITE_LOGO_SRC } from '../lib/siteBrand';
 
-export const Navbar = () => {
+type NavbarProps = {
+  /** Always show solid nav background (blog pages). */
+  forceSolid?: boolean;
+};
+
+export const Navbar = ({ forceSolid = false }: NavbarProps) => {
+  const { pathname } = useLocation();
+  const isBlog = pathname.startsWith('/blog');
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
+  const [scrolled, setScrolled] = useState(forceSolid);
 
   useEffect(() => {
+    if (forceSolid) {
+      setScrolled(true);
+      return;
+    }
     let raf = 0;
     const handleScroll = () => {
       if (raf) return;
@@ -24,7 +36,9 @@ export const Navbar = () => {
       window.removeEventListener('scroll', handleScroll);
       if (raf) cancelAnimationFrame(raf);
     };
-  }, []);
+  }, [forceSolid]);
+
+  const sectionHref = (hash: string) => (isBlog ? `/${hash}` : hash);
 
   return (
     <nav className={cn(
@@ -33,8 +47,8 @@ export const Navbar = () => {
     )}>
       <div className="container relative mx-auto flex min-h-16 items-center px-4 py-4 sm:min-h-[4.5rem] sm:px-6 md:min-h-24 md:px-8">
         {/* Out of document flow so nav links / CTA can use full row width */}
-        <a
-          href="#"
+        <Link
+          to="/"
           className="absolute left-4 top-1/2 z-20 flex -translate-y-1/2 items-center py-1 sm:left-6 md:left-8"
         >
           <img
@@ -46,20 +60,29 @@ export const Navbar = () => {
             decoding="async"
             draggable={false}
           />
-        </a>
+        </Link>
 
         <div className="flex w-full justify-end items-center">
           <div className="hidden items-center gap-8 text-white font-medium md:flex">
-            <a href="#videos" className="inline-flex items-center py-1 hover:opacity-80 transition-opacity">
+            <a href={sectionHref('#videos')} className="inline-flex items-center py-1 hover:opacity-80 transition-opacity">
               Videos
             </a>
-            <a href="#services" className="inline-flex items-center py-1 hover:opacity-80 transition-opacity">
+            <a href={sectionHref('#services')} className="inline-flex items-center py-1 hover:opacity-80 transition-opacity">
               Services
             </a>
-            <a href="#process" className="inline-flex items-center py-1 hover:opacity-80 transition-opacity">
+            <a href={sectionHref('#process')} className="inline-flex items-center py-1 hover:opacity-80 transition-opacity">
               Process
             </a>
-            <a href="#about" className="inline-flex items-center py-1 hover:opacity-80 transition-opacity">
+            <Link
+              to="/blog"
+              className={cn(
+                'inline-flex items-center py-1 hover:opacity-80 transition-opacity',
+                pathname.startsWith('/blog') && 'text-brand-cream font-bold',
+              )}
+            >
+              Blog
+            </Link>
+            <a href={sectionHref('#about')} className="inline-flex items-center py-1 hover:opacity-80 transition-opacity">
               About
             </a>
             <a
@@ -90,10 +113,11 @@ export const Navbar = () => {
             exit={{ opacity: 0, y: -20 }}
             className="absolute top-full left-0 right-0 bg-brand-blue border-t border-white/10 p-4 pb-[max(1rem,env(safe-area-inset-bottom))] md:hidden flex flex-col space-y-4 shadow-xl max-h-[calc(100dvh-4rem)] overflow-y-auto"
           >
-            <a href="#videos" className="text-white font-medium text-lg" onClick={() => setIsOpen(false)}>Videos</a>
-            <a href="#services" className="text-white font-medium text-lg" onClick={() => setIsOpen(false)}>Services</a>
-            <a href="#process" className="text-white font-medium text-lg" onClick={() => setIsOpen(false)}>Process</a>
-            <a href="#about" className="text-white font-medium text-lg" onClick={() => setIsOpen(false)}>About</a>
+            <a href={sectionHref('#videos')} className="text-white font-medium text-lg" onClick={() => setIsOpen(false)}>Videos</a>
+            <a href={sectionHref('#services')} className="text-white font-medium text-lg" onClick={() => setIsOpen(false)}>Services</a>
+            <a href={sectionHref('#process')} className="text-white font-medium text-lg" onClick={() => setIsOpen(false)}>Process</a>
+            <Link to="/blog" className="text-white font-medium text-lg" onClick={() => setIsOpen(false)}>Blog</Link>
+            <a href={sectionHref('#about')} className="text-white font-medium text-lg" onClick={() => setIsOpen(false)}>About</a>
             <a
               href={BOOK_CALL_TEL_HREF}
               onClick={() => setIsOpen(false)}

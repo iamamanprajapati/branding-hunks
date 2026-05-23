@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { Facebook, Instagram, Linkedin, Youtube } from 'lucide-react';
 import {
   BOOK_CALL_PHONE_DISPLAY,
@@ -60,6 +61,12 @@ export const Footer = () => {
                 <a href={BOOK_CALL_SECONDARY_TEL_HREF} className="underline-offset-2 hover:text-white hover:underline transition-colors">
                   {BOOK_CALL_SECONDARY_PHONE_DISPLAY}
                 </a>
+                <Link
+                  to="/blog"
+                  className="underline-offset-2 hover:text-white hover:underline transition-colors"
+                >
+                  Blog & guides
+                </Link>
               </div>
             </div>
 

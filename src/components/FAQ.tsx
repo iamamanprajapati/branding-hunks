@@ -37,7 +37,7 @@ export const FAQ = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(0);
 
   return (
-    <section className="py-12 sm:py-16 md:py-20 bg-white">
+    <section id="about" className="py-12 sm:py-16 md:py-20 bg-white">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 max-w-4xl">
         <div className="text-center mb-10 sm:mb-16">
           <h2 className="font-display font-black text-2xl sm:text-3xl md:text-4xl text-black">
