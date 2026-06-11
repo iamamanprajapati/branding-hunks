@@ -126,13 +126,13 @@ export const Footer = () => {
               © Branding Hunks 2025 | Design Agency | All Rights Reserved
             </p>
 
-            <div className="flex justify-end">
-              <a
-                href="#"
+            <div className="flex justify-center sm:justify-end">
+              <Link
+                to="/privacy"
                 className="text-xs text-white/90 underline-offset-2 hover:text-white hover:underline transition-colors sm:text-sm"
               >
                 Privacy Policy
-              </a>
+              </Link>
             </div>
           </div>
         </div>

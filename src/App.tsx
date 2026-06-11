@@ -10,6 +10,7 @@ import { GoogleAnalytics } from './components/GoogleAnalytics';
 import { HomePage } from './pages/HomePage';
 import { BlogIndexPage } from './pages/BlogIndexPage';
 import { BlogPostPage } from './pages/BlogPostPage';
+import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/blog" element={<BlogIndexPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
         </Routes>
       </BrowserRouter>
     </div>

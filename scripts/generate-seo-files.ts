@@ -14,6 +14,7 @@ function generateSitemap() {
   const urls = [
     { loc: `${SITE_ORIGIN}/`, changefreq: 'weekly', priority: '1.0' },
     { loc: `${SITE_ORIGIN}/blog`, changefreq: 'weekly', priority: '0.9' },
+    { loc: `${SITE_ORIGIN}/privacy`, changefreq: 'monthly', priority: '0.3' },
     ...BLOG_POSTS.map(post => ({
       loc: `${SITE_ORIGIN}/blog/${post.slug}`,
       lastmod: post.publishedAt,
