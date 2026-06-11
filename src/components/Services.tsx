@@ -4,15 +4,15 @@ import { BOOK_CALL_PHONE_DISPLAY, BOOK_CALL_TEL_HREF } from '../lib/contact';
 
 const services = [
   { icon: Camera, title: "Product photography" },
-  { icon: Video, title: "Product videos" },
+  { icon: Video, title: "Video Editing & Production" },
   { icon: User, title: "Model images & videos" },
-  { icon: Users, title: "UGC Videos" },
+  { icon: Users, title: "UGC Videos & Creator Content" },
   { icon: Megaphone, title: "Campaign shoots" },
   { icon: Film, title: "Brand story videos" },
   { icon: Mic, title: "Podcast style videos" },
-  { icon: PlayCircle, title: "Reels" },
+  { icon: PlayCircle, title: "Instagram & Facebook Marketing Reels" },
   { icon: Camera, title: "Hook based videos for A/B Testing" },
-  { icon: Film, title: "Ad films" },
+  { icon: Film, title: "Ad films & Meta Creatives" },
   { icon: Box, title: "Product launch photos" },
   { icon: MessageSquare, title: "Testimonial Videos" },
 ];

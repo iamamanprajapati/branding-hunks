@@ -24,6 +24,7 @@ export function BlogPostPage() {
     description: post?.description ?? '',
     canonicalPath: post ? `/blog/${post.slug}` : undefined,
     ogType: 'article',
+    ogImage: '/logo.png',
   });
 
   useEffect(() => {
@@ -35,16 +36,29 @@ export function BlogPostPage() {
 
     const jsonLd = {
       '@context': 'https://schema.org',
-      '@type': 'Article',
+      '@type': 'BlogPosting',
       headline: post.title,
       description: post.description,
+      image: [`${SITE_ORIGIN}/logo.png`],
       datePublished: post.publishedAt,
-      author: { '@type': 'Organization', name: SITE_NAME },
+      dateModified: post.publishedAt,
+      author: {
+        '@type': 'Organization',
+        name: SITE_NAME,
+        url: SITE_ORIGIN,
+      },
       publisher: {
         '@type': 'Organization',
         name: SITE_NAME,
+        logo: {
+          '@type': 'ImageObject',
+          url: `${SITE_ORIGIN}/logo.png`,
+        },
       },
-      mainEntityOfPage: `${SITE_ORIGIN}/blog/${post.slug}`,
+      mainEntityOfPage: {
+        '@type': 'WebPage',
+        '@id': `${SITE_ORIGIN}/blog/${post.slug}`,
+      },
     };
 
     const script = document.createElement('script');

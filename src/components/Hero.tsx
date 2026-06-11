@@ -85,7 +85,7 @@ const LazyHeroYouTubeCell = React.memo(function LazyHeroYouTubeCell({
       ) : (
         <img
           src={posterSrc}
-          alt=""
+          alt="Branding Hunks D2C creative UGC video reel preview"
           className="absolute inset-0 h-full w-full object-cover"
           loading="lazy"
           decoding="async"
@@ -131,6 +131,9 @@ export const Hero = () => {
     <section className="bg-brand-gradient pt-24 sm:pt-28 md:pt-32 pb-12 sm:pb-16 md:pb-20 min-h-[100dvh] flex items-center overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 md:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 items-center">
         <div className="z-10 order-2 lg:order-1">
+          <p className="text-brand-cream/80 text-xs sm:text-sm font-semibold uppercase tracking-widest mb-3">
+            UGC Videos & Meta Ad Creative Agency
+          </p>
           <h1 className="font-display font-black text-white text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight tracking-tight mb-4 sm:mb-6">
             We create <br />
             <span className="text-brand-cream">high-performing</span> <br />
@@ -139,7 +142,7 @@ export const Hero = () => {
           </h1>
 
           <p className="text-white/90 text-sm sm:text-base md:text-lg max-w-lg mb-6 sm:mb-8 leading-relaxed">
-            Trusted by India's leading D2C brands, Branding Hunks is the creative partner that turns your product into content that converts. From scroll-stopping reels to campaign-ready photos — we make your brand look as good as it performs.
+            Branding Hunks is the best Meta ad company and UGC video production studio in India. We specialize in high-converting video editing, product photography, and performance-focused Instagram & Facebook marketing visuals that turn viewers into buyers.
           </p>
 
           <a
