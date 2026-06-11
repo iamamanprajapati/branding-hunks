@@ -8,6 +8,18 @@ import { postMetaAds } from './blog/post-meta-ads';
 import { postAgencyComparison } from './blog/post-agency-comparison';
 import { postWhatsappCatalog } from './blog/post-whatsapp-catalog';
 
+// New posts
+import { postCreativeFatigue } from './blog/post-creative-fatigue';
+import { postEditingPlaybook } from './blog/post-editing-playbook';
+import { postSourceUgc } from './blog/post-source-ugc';
+import { postShopifyVisuals } from './blog/post-shopify-visuals';
+import { postFashionPhotoshoot } from './blog/post-fashion-photoshoot';
+import { postCosmeticsPhotography } from './blog/post-cosmetics-photography';
+import { postHookLanguages } from './blog/post-hook-languages';
+import { postVideoTransitions } from './blog/post-video-transitions';
+import { postCreativeRoi } from './blog/post-creative-roi';
+import { postFoodBeverage } from './blog/post-food-beverage';
+
 export const BLOG_POSTS: BlogPost[] = [
   postUgcReels,
   postAmazonPhotography,
@@ -15,6 +27,16 @@ export const BLOG_POSTS: BlogPost[] = [
   postMetaAds,
   postAgencyComparison,
   postWhatsappCatalog,
+  postCreativeFatigue,
+  postEditingPlaybook,
+  postSourceUgc,
+  postShopifyVisuals,
+  postFashionPhotoshoot,
+  postCosmeticsPhotography,
+  postHookLanguages,
+  postVideoTransitions,
+  postCreativeRoi,
+  postFoodBeverage,
 ];
 
 export function getPostBySlug(slug: string): BlogPost | undefined {
