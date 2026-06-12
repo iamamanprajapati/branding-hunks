@@ -2,6 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { BLOG_POSTS } from '../src/lib/blogPosts';
+import { LANDING_PAGES } from '../src/lib/landingPages';
 import { SITE_ORIGIN } from '../src/lib/site';
 
 const __filename = fileURLToPath(import.meta.url);
@@ -19,6 +20,11 @@ function generateSitemap() {
       loc: `${SITE_ORIGIN}/blog/${post.slug}`,
       lastmod: post.publishedAt,
       changefreq: 'monthly',
+      priority: '0.8'
+    })),
+    ...LANDING_PAGES.map(page => ({
+      loc: `${SITE_ORIGIN}/services/${page.slug}`,
+      changefreq: 'weekly',
       priority: '0.8'
     }))
   ];

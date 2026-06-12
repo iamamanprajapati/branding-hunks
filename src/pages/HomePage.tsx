@@ -65,8 +65,8 @@ export function HomePage() {
       },
       geo: {
         '@type': 'GeoCoordinates',
-        latitude: 28.6273,
-        longitude: 77.3725,
+        latitude: 28.6173,
+        longitude: 77.3806,
       },
       openingHoursSpecification: {
         '@type': 'OpeningHoursSpecification',

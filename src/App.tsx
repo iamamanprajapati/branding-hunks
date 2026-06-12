@@ -11,6 +11,7 @@ import { HomePage } from './pages/HomePage';
 import { BlogIndexPage } from './pages/BlogIndexPage';
 import { BlogPostPage } from './pages/BlogPostPage';
 import { PrivacyPolicyPage } from './pages/PrivacyPolicyPage';
+import { ServiceLandingPage } from './pages/ServiceLandingPage';
 
 export default function App() {
   return (
@@ -23,6 +24,7 @@ export default function App() {
           <Route path="/blog" element={<BlogIndexPage />} />
           <Route path="/blog/:slug" element={<BlogPostPage />} />
           <Route path="/privacy" element={<PrivacyPolicyPage />} />
+          <Route path="/services/:slug" element={<ServiceLandingPage />} />
         </Routes>
       </BrowserRouter>
     </div>
