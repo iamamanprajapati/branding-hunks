@@ -20,21 +20,19 @@ const LazyYouTubeShortEmbed = React.memo(function LazyYouTubeShortEmbed({
 
   useEffect(() => {
     const el = rootRef.current;
-    if (!el || active) return;
+    if (!el) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries.some((e) => e.isIntersecting)) {
-          setActive(true);
-          observer.disconnect();
-        }
+        const entry = entries[0];
+        setActive(entry.isIntersecting);
       },
-      { rootMargin: '120px 0px', threshold: 0.01 },
+      { rootMargin: '100px 0px', threshold: 0.01 }
     );
 
     observer.observe(el);
     return () => observer.disconnect();
-  }, [active]);
+  }, []);
 
   const embedSrc = youtubeShortEmbedSrc(videoId);
   const posterSrc = youtubeShortPosterSrc(videoId);
@@ -42,7 +40,7 @@ const LazyYouTubeShortEmbed = React.memo(function LazyYouTubeShortEmbed({
   return (
     <div
       ref={rootRef}
-      className="relative w-full aspect-[9/16] max-w-[216px] sm:max-w-[252px] mx-auto overflow-hidden bg-neutral-900 shadow-xl"
+      className="relative w-full aspect-[9/16] max-w-[216px] sm:max-w-[252px] mx-auto overflow-hidden bg-neutral-900 shadow-xl rounded-xl border border-gray-200"
     >
       {active ? (
         <>
@@ -59,7 +57,7 @@ const LazyYouTubeShortEmbed = React.memo(function LazyYouTubeShortEmbed({
       ) : (
         <img
           src={posterSrc}
-          alt=""
+          alt="Work Showcase Preview"
           className="absolute inset-0 w-full h-full object-cover"
           loading="lazy"
           decoding="async"

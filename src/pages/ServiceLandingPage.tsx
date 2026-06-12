@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { Phone, Mail, MessageSquare, MapPin, ChevronDown, ChevronUp, Asterisk } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
@@ -17,6 +17,60 @@ import {
 } from '../lib/contact';
 import { getLandingPageBySlug, getRelatedLandingPages } from '../lib/landingPages';
 import { youtubeShortEmbedSrc, youtubeShortPosterSrc } from '../lib/youtubeShorts';
+
+const ServiceVideoCard = ({ id }: { id: string }) => {
+  const rootRef = useRef<HTMLDivElement>(null);
+  const [active, setActive] = useState(false);
+
+  useEffect(() => {
+    const el = rootRef.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        setActive(entry.isIntersecting);
+      },
+      { rootMargin: '100px 0px', threshold: 0.01 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
+
+  const embedSrc = youtubeShortEmbedSrc(id);
+  const posterSrc = youtubeShortPosterSrc(id);
+
+  return (
+    <div
+      ref={rootRef}
+      className="relative w-full aspect-[9/16] overflow-hidden bg-neutral-900 shadow-xl rounded-xl border border-gray-200"
+    >
+      {active ? (
+        <>
+          <iframe
+            src={embedSrc}
+            title="Work Showcase Preview"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+            className="absolute inset-0 w-full h-full pointer-events-none select-none"
+            style={{ border: 0 }}
+          />
+          <div className="absolute inset-0 z-10 cursor-default" aria-hidden />
+        </>
+      ) : (
+        <img
+          src={posterSrc}
+          alt="Work Showcase Preview"
+          className="absolute inset-0 w-full h-full object-cover"
+          loading="lazy"
+          decoding="async"
+          draggable={false}
+        />
+      )}
+    </div>
+  );
+};
 
 export function ServiceLandingPage() {
   const { slug } = useParams<{ slug: string }>();
@@ -212,22 +266,9 @@ export function ServiceLandingPage() {
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 justify-center max-w-5xl mx-auto">
-            {pageData.portfolioIds.map((id) => {
-              const embedSrc = youtubeShortEmbedSrc(id);
-              return (
-                <div key={id} className="relative w-full aspect-[9/16] overflow-hidden bg-neutral-900 shadow-xl rounded-xl border border-gray-200">
-                  <iframe
-                    src={embedSrc}
-                    title="Work Showcase Preview"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                    allowFullScreen
-                    className="absolute inset-0 w-full h-full pointer-events-none select-none"
-                    style={{ border: 0 }}
-                  />
-                  <div className="absolute inset-0 z-10 cursor-default" aria-hidden />
-                </div>
-              );
-            })}
+            {pageData.portfolioIds.map((id) => (
+              <ServiceVideoCard key={id} id={id} />
+            ))}
           </div>
         </div>
       </section>

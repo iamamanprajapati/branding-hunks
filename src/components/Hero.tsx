@@ -26,41 +26,28 @@ const [heroMarqueeCol0, heroMarqueeCol1, heroMarqueeCol2] =
 /** Poster first; load autoplay iframe only when near the viewport, staggered to avoid burst-loading many players. */
 const LazyHeroYouTubeCell = React.memo(function LazyHeroYouTubeCell({
   videoId,
-  staggerIndex,
 }: {
   videoId: string;
   staggerIndex: number;
 }) {
   const rootRef = useRef<HTMLDivElement>(null);
   const [active, setActive] = useState(false);
-  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
     const el = rootRef.current;
-    if (!el || active) return;
+    if (!el) return;
 
     const observer = new IntersectionObserver(
       (entries) => {
-        if (!entries.some((e) => e.isIntersecting)) return;
-        observer.disconnect();
-        const staggerMs = (staggerIndex % 8) * 180;
-        timeoutRef.current = setTimeout(() => {
-          setActive(true);
-          timeoutRef.current = null;
-        }, staggerMs);
+        const entry = entries[0];
+        setActive(entry.isIntersecting);
       },
-      { rootMargin: '100px 0px', threshold: 0.08 },
+      { rootMargin: '100px 0px', threshold: 0.01 }
     );
 
     observer.observe(el);
-    return () => {
-      observer.disconnect();
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
-        timeoutRef.current = null;
-      }
-    };
-  }, [active, staggerIndex]);
+    return () => observer.disconnect();
+  }, []);
 
   const embedSrc = youtubeShortEmbedSrc(videoId);
   const posterSrc = youtubeShortPosterSrc(videoId);
